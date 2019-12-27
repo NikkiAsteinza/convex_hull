@@ -8,26 +8,27 @@ import sys
 import operator
 #Iniciar pygame
 pygame.init()
+#Tamaño de pantalla
 size = [800,800]
+#Inicializar pantalla
 screen = pygame.display.set_mode(size)
+#Carga imagen de fondo
 background_image = pygame.image.load("abstract_bg.jpg").convert()
+#Mostrarla
 screen.blit(background_image, [0, 0])
+#Actualizar pantalla
 pygame.display.flip()
+#Titulo
 pygame.display.set_caption("Convex Hull")
+#Cargar burbujas para puntos del ConvexHull
 bubble= pygame.image.load('nikkibubble.png')
 #Puntos definidos por tuplas
 NewPoint = collections.namedtuple("NewPoint", "x y")
-
-LeftSidesPoints_Left = []
-LeftSidesPoints_Right = []
-intento=0
-#Epsilon para saber si un punto está a la izquierda del segmento
-epsilon =  sys.float_info.epsilon;
 #Diccionario de colores
 Colors = {"green":(0,230,0),"white":(255,255,255),"red":(230, 0,0),"blue":(0,0,230), "white":(255,255,255), "black":(0,0,0)}
 #Función para dibujar un punto p de un color definido en el diccionario
-def drawPoint(p, color, width=1):
-    pygame.draw.rect(screen, Colors[color], pygame.Rect(p.x,p.y,3,3),width)
+def drawPoint(p, color, width=2):
+    pygame.draw.rect(screen, Colors[color], pygame.Rect(p.x,p.y,5,5),width)
     #Refrescar pantalla
     pygame.display.flip()
 #Función para dibujar una linea de origin a target de un color definido en el diccionario
@@ -39,27 +40,27 @@ def drawLine(origin, target, color, width=2):
 def randomPolygon(n):
     #lista de puntos
     PointList =[]
-    #iterador
+    #Limitando valores pseudoaleatorios
     Top=NewPoint(random.randint(80,750),80)
     PointList.append(Top)
-    drawPoint(Top,"white",6)
+    drawPoint(Top,"white",4)
     Bottom=NewPoint(random.randint(80,750),750)
     PointList.append(Bottom)
-    drawPoint(Bottom,"white",6)
+    drawPoint(Bottom,"white",4)
     Left=NewPoint(80,random.randint(80,750))
     PointList.append(Left)
-    drawPoint(Left,"white",6)
+    drawPoint(Left,"white",4)
     Right=NewPoint(750,random.randint(80,750))
     PointList.append(Right)
-    drawPoint(Right,"white",6)
+    drawPoint(Right,"white",4)
     i=4
     #bucle creación de puntos
     while i<n:
         #Nuevo punto aleatorios
-        p = NewPoint(random.randint(0,490),random.randint(0,490))
+        p = NewPoint(random.randint(0,600),random.randint(0,600))
         #Añadir punto a lista de puntos
         PointList.append(p)
-        drawPoint(PointList[i],"white")
+        drawPoint(PointList[i],"green",4)
         #Dibujar punto
         #Aumentar iterador
         i=i+1
@@ -83,7 +84,6 @@ def distance2Line(p1, p2,P):
     b=p2.x-p1.x
     c=p1.x+p2.y-p2.x*p1.y
     return abs(a*P.x+b*P.y+c/sqrt(a*a+b*b))
-
 #Función para calcular si un punto p está dentro de un polígono P
 def divide(p1,p2,P):
     above=[]
@@ -165,8 +165,11 @@ def quickHull2(p1,p2,division,flag):
 def printHull(H):
     print("Final Hull:",H)
     for point in H:
-        drawPoint(point,"red",4)
         screen.blit(bubble,(point.x,point.y))
+        drawPoint(point,"red",4)
+        pygame.display.flip()
+        #drawPoint(point,"red",4)
+
 
 Polygon=[]
 RandomPoints = randomPolygon(15)
@@ -178,5 +181,5 @@ printHull(Result)
 
 #convexHullA(Polygon,2)
 
-time.sleep(15.5)
+time.sleep(25.5)
 pygame.quit()
