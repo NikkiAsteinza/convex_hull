@@ -1,6 +1,8 @@
 name: Build Space Invaders with Pygbag
 on:
-  push
+  push:
+    branches:
+      -master
   workflow_dispatch:
 
 jobs:
