@@ -71,7 +71,7 @@ def runConvexHull(screen):
     show_instructions = True  # Para mostrar instrucciones y botón Convex Hull
 
     # Mensaje de instrucciones
-    font = pygame.font.Font(None, 18)
+    font = pygame.font.Font(None, 20)
     message_text = font.render("Click to select points (up to 50). Click 'Convex Hull' to execute.", True, Colors["white"])
 
 
