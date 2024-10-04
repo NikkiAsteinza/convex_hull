@@ -1,8 +1,9 @@
 name: Build Space Invaders with Pygbag
+
 on:
   push:
     branches:
-      -master
+      - main  # or the branch you want to trigger on
   workflow_dispatch:
 
 jobs:
@@ -11,17 +12,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Checkout
-      run: |
-            echo "Attempting to install pygbag"
-            python -m pip install pygbag
-            echo "Successfully installed pygbag"
-            echo "Attempting to build the game"
-            python -m pygbag --build $GITHUB_WORKSPACE/main.py
-            echo "Successfully build the game and complied to WebAssembly"
+    - uses: actions/checkout@v3
 
-    - name : "Upload to GitHub pages branch gh-pages"
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'  # Specify the version of Python you want
+
+    - name: Install Pygbag
+      run: |
+        echo "Attempting to install pygbag"
+        python -m pip install pygbag
+        echo "Successfully installed pygbag"
+
+    - name: Build the game
+      run: |
+        echo "Attempting to build the game"
+        python -m pygbag --build $GITHUB_WORKSPACE/main.py
+        echo "Successfully built the game and compiled to WebAssembly"
+        ls build/web  # List contents of the build folder to verify
+
+    - name: Upload to GitHub pages branch gh-pages
       uses: JamesIves/github-pages-deploy-action@4.1.7
       with:
         branch: gh-pages
