@@ -3,7 +3,7 @@ name: Build with Pygbag
 on:
   push:
     branches:
-      - main  # or the branch you want to trigger on
+      - master  # or the branch you want to trigger on
   workflow_dispatch:
 
 jobs:
