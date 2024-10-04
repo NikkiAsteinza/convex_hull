@@ -81,8 +81,10 @@ def runConvexHull(screen):
 
     while is_running:
         # screen.fill(Colors["black"])
-        background_image = pygame.image.load("bg.jpg")
+        background_image = pygame.image.load("assets/bg.jpg")
         screen.blit(pygame.transform.scale(background_image, (800, 800)), (0, 0))
+        # imagen = pygame.image.load("assets/animal.png")
+        # screen.blit(pygame.transform.scale(imagen, (800, 800)), (0, 0))
         # Mostrar instrucciones y botón Convex Hull si es necesario
         if show_instructions:
             screen.blit(message_text, (20, 750))
