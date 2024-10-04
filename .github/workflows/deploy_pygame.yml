@@ -28,7 +28,7 @@ jobs:
     - name: Build the game
       run: |
         echo "Attempting to build the game"
-        python -m pygbag --build $GITHUB_WORKSPACE/main.py
+        python -m pygbag --build $GITHUB_WORKSPACE/main.py --optimize
         echo "Successfully built the game and compiled to WebAssembly"
         ls build/web  # List contents of the build folder to verify
 
