@@ -2,9 +2,6 @@ import pygame
 import collections
 from math import sqrt
 
-# Inicializar Pygame
-pygame.init()
-
 # Definir colores
 Colors = {
     "green": (0, 230, 0),
@@ -79,7 +76,7 @@ def runConvexHull(screen):
 
 
     button_rect = pygame.Rect(400+100, 750, 150, 30)  # Botón Convex Hull
-    reset_button_rect = pygame.Rect(400+300, 750, 150, 30)  # Botón Reset
+    reset_button_rect = pygame.Rect(400+280, 750, 100, 30)  # Botón Reset
 
 
     while is_running:
