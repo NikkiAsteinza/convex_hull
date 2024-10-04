@@ -70,26 +70,25 @@ def runConvexHull(screen):
     hull = []  # Para almacenar el Convex Hull
     show_instructions = True  # Para mostrar instrucciones y botón Convex Hull
 
+    # Cargar la imagen de fondo una vez
+    background_image = pygame.image.load("assets/bg.jpg")
+    background_image = pygame.transform.scale(background_image, (800, 800))
+
     # Mensaje de instrucciones
     font = pygame.font.Font(None, 20)
     message_text = font.render("Click to select points (up to 50). Click 'Convex Hull' to execute.", True, Colors["white"])
 
-
-    button_rect = pygame.Rect(400+100, 750, 150, 30)  # Botón Convex Hull
-    reset_button_rect = pygame.Rect(400+280, 750, 100, 30)  # Botón Reset
-
+    button_rect = pygame.Rect(500, 750, 150, 30)  # Botón Convex Hull
+    reset_button_rect = pygame.Rect(680, 750, 100, 30)  # Botón Reset
 
     while is_running:
-        # screen.fill(Colors["black"])
-        background_image = pygame.image.load("assets/bg.jpg")
-        screen.blit(pygame.transform.scale(background_image, (800, 800)), (0, 0))
-        # imagen = pygame.image.load("assets/animal.png")
-        # screen.blit(pygame.transform.scale(imagen, (800, 800)), (0, 0))
+        # Limpiar la pantalla
+        screen.blit(background_image, (0, 0))
+
         # Mostrar instrucciones y botón Convex Hull si es necesario
         if show_instructions:
             screen.blit(message_text, (20, 750))
             drawButton(screen, "Convex Hull", button_rect.x, button_rect.y, button_rect.width, button_rect.height)
-            # Dibujar el botón de Reset si se ha hecho clic en Convex Hull
         else:
             drawButton(screen, "Reset", reset_button_rect.x, reset_button_rect.y, reset_button_rect.width, reset_button_rect.height)
 
@@ -102,9 +101,10 @@ def runConvexHull(screen):
             for i in range(len(hull)):
                 drawLine(screen, (hull[i].x, hull[i].y), (hull[(i + 1) % len(hull)].x, hull[(i + 1) % len(hull)].y), "blue", 2)
 
+        # Manejar eventos
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                is_running = False
+                is_running = False  # Cierra la ventana al recibir el evento QUIT
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = event.pos
                 if len(selected_points) < 50 and event.button == 1:
@@ -122,4 +122,5 @@ def runConvexHull(screen):
                     hull.clear()  # Borrar el Convex Hull
                     show_instructions = True  # Volver a mostrar instrucciones
 
+        # Actualizar la pantalla
         pygame.display.flip()

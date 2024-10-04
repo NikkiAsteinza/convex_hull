@@ -9,14 +9,33 @@ def main():
     # Tamaño de la pantalla
     screen_size = (800, 800)
     screen = pygame.display.set_mode(screen_size)
-
     pygame.display.set_caption("Convex Hull Algorithm")
+
+    # Crear un reloj para limitar los FPS
+    clock = pygame.time.Clock()
 
     # Ejecutar la pantalla de inicio
     runStartScreen(screen)
 
-    # Ejecutar el algoritmo de Convex Hull
-    runConvexHull(screen)
+    # Bucle principal de la aplicación
+    running = True
+    while running:
+        # Limitar los FPS
+        clock.tick(60)
+
+        # Manejar eventos
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        # Limpiar la pantalla
+        screen.fill((255, 255, 255))  # Limpiar con color blanco
+
+        # Aquí puedes llamar a tu función de dibujo
+        runConvexHull(screen)
+
+        # Actualizar la pantalla
+        pygame.display.flip()
 
     pygame.quit()
 
