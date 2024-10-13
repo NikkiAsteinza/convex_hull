@@ -32,8 +32,16 @@ jobs:
         echo "Successfully built the game and compiled to WebAssembly"
         ls build/web  # List contents of the build folder to verify
 
+    - name: Copy assets
+      run: |
+        echo "Copying assets folder"
+        cp -r $GITHUB_WORKSPACE/assets build/web/assets
+        echo "Assets copied successfully"
+        ls build/web/assets  # Verify that the assets folder has been copied
+
     - name: Upload to GitHub pages branch gh-pages
       uses: JamesIves/github-pages-deploy-action@4.1.7
       with:
         branch: gh-pages
         folder: build/web
+
