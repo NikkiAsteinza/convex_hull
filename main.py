@@ -1,23 +1,21 @@
+import asyncio
 import pygame
 from start_screen import runStartScreen
 from convex_hull import runConvexHull
 
-def main():
-    # Iniciar Pygame
+async def main():
     pygame.init()
     
-    # Tamaño de la pantalla
+    # Configuración de la pantalla
     screen_size = (800, 800)
     screen = pygame.display.set_mode(screen_size)
     pygame.display.set_caption("Convex Hull Algorithm")
 
-    # Crear un reloj para limitar los FPS
-    clock = pygame.time.Clock()
-
     # Ejecutar la pantalla de inicio
-    runStartScreen(screen)
-
+    await runStartScreen(screen)
+    
     # Bucle principal de la aplicación
+    clock = pygame.time.Clock()
     running = True
     while running:
         # Limitar los FPS
@@ -28,11 +26,9 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        # Limpiar la pantalla
+        # Limpiar la pantalla y ejecutar el algoritmo de Convex Hull
         screen.fill((255, 255, 255))  # Limpiar con color blanco
-
-        # Aquí puedes llamar a tu función de dibujo
-        runConvexHull(screen)
+        await runConvexHull(screen)
 
         # Actualizar la pantalla
         pygame.display.flip()
@@ -40,4 +36,4 @@ def main():
     pygame.quit()
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

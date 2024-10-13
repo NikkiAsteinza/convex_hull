@@ -1,6 +1,7 @@
 import pygame
+import asyncio
 
-def runStartScreen(screen):
+async def runStartScreen(screen):
     # Configuración de la fuente
     font = pygame.font.Font(None, 74)
     button_font = pygame.font.Font(None, 36)
@@ -35,4 +36,6 @@ def runStartScreen(screen):
         # Actualizar la pantalla
         pygame.display.flip()
 
-# No es necesario modificar aquí, pero asegúrate de que el bucle principal de la aplicación lo llame
+        # Permitir que otras tareas asíncronas se ejecuten
+        await asyncio.sleep(0)
+

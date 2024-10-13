@@ -1,4 +1,5 @@
 import pygame
+import asyncio
 import collections
 from math import sqrt
 
@@ -64,15 +65,20 @@ def convexHull(points):
 
     return lower + upper  # Retorna el Convex Hull
 
-def runConvexHull(screen):
+async def runConvexHull(screen):
     selected_points = []
     is_running = True
     hull = []  # Para almacenar el Convex Hull
     show_instructions = True  # Para mostrar instrucciones y botón Convex Hull
 
     # Cargar la imagen de fondo una vez
-    background_image = pygame.image.load("assets/bg.jpg")
-    background_image = pygame.transform.scale(background_image, (800, 800))
+    try:
+        background_image = pygame.image.load("assets/bg.jpg")
+        background_image = pygame.transform.scale(background_image, (800, 800))
+    except pygame.error as e:
+        print(f"Error loading background image: {e}")
+        background_image = None
+
 
     # Mensaje de instrucciones
     font = pygame.font.Font(None, 20)
@@ -83,7 +89,9 @@ def runConvexHull(screen):
 
     while is_running:
         # Limpiar la pantalla
-        screen.blit(background_image, (0, 0))
+        if background_image:
+            screen.blit(background_image, (0, 0))
+
 
         # Mostrar instrucciones y botón Convex Hull si es necesario
         if show_instructions:
@@ -124,3 +132,6 @@ def runConvexHull(screen):
 
         # Actualizar la pantalla
         pygame.display.flip()
+
+        # Permitir que otras tareas asíncronas se ejecuten
+        await asyncio.sleep(0)
